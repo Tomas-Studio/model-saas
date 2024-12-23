@@ -7,13 +7,17 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint . --cache",
+    "lintfix": "eslint . --cache --fix"
   },
   "dependencies": {
     "@nuxt/eslint": "0.7.4",
     "@nuxt/fonts": "0.10.3",
+    "@nuxtjs/color-mode": "3.5.2",
     "eslint": "^8.57.0 || ^9.0.0",
     "nuxt": "^3.14.1592",
+    "shadcn-nuxt": "0.11.3",
     "vue": "latest",
     "vue-router": "latest"
   }
