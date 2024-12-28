@@ -21,6 +21,7 @@
     "clsx": "^2.1.1",
     "eslint": "^8.57.0 || ^9.0.0",
     "nuxt": "^3.14.1592",
+    "nuxt-auth-utils": "0.5.7",
     "nuxt-multi-tenancy": "1.2.4",
     "radix-vue": "^1.9.11",
     "shadcn-nuxt": "0.11.3",

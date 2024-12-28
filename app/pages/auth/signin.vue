@@ -4,6 +4,6 @@
 
 <template>
   <div>
-    Login page
+    SignIn Page
   </div>
 </template>

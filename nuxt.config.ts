@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     'shadcn-nuxt',
     '@nuxtjs/color-mode',
     'nuxt-multi-tenancy',
+    'nuxt-auth-utils',
   ],
 
   // routeRules: {
@@ -24,7 +25,7 @@ export default defineNuxtConfig({
   multiTenancy: {
     tenantDynamicRoute: 'subdomain',
     rootDomains: ['localhost:5067'],
-    sites: ['admin', 'auth']
+    sites: ['admin', 'auth', 'app']
   },
 
   css: ['~/styles/tailwind.css',],
