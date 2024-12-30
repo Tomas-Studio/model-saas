@@ -1,7 +1,5 @@
 <script lang="ts" setup>
 import { Separator } from '~/components/ui/namespace'
-
-const { href } = useRequestURL()
 </script>
 
 <template>
