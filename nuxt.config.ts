@@ -13,10 +13,6 @@ export default defineNuxtConfig({
     'nuxt-auth-utils',
   ],
 
-  // routeRules: {
-  //   '/auth': { redirect: '/auth/login' }
-  // },
-
   shadcn: {
     prefix: '',
     componentDir: './app/components/ui',
@@ -25,7 +21,7 @@ export default defineNuxtConfig({
   multiTenancy: {
     tenantDynamicRoute: 'subdomain',
     rootDomains: ['localhost:5067'],
-    sites: ['admin', 'auth', 'app']
+    sites: ['auth', 'app']
   },
 
   css: ['~/styles/tailwind.css',],

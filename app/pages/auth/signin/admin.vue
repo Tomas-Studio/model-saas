@@ -3,7 +3,5 @@
 </script>
 
 <template>
-  <div>
-    SignUp Page
-  </div>
+  <div>As an Admin</div>
 </template>

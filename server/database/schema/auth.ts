@@ -6,7 +6,7 @@ export const users = sqliteTable('users', {
   id: text().$defaultFn(()=> nanoid16()).primaryKey(),
   email: text().notNull().unique(),
   role: text({ enum: ['admin', 'member'] }).notNull().default('member'),
-  tenantId: text().notNull(),
+  tenantId: text().notNull().unique(),
   password: text(),
   otpSecret: int({ mode: 'number' }),
   passkeyPublicKey: text(),

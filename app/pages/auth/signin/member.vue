@@ -4,6 +4,6 @@
 
 <template>
   <div>
-    SignIn Page
+    As a member
   </div>
 </template>
