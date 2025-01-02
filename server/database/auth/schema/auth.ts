@@ -1,12 +1,11 @@
 import { text, int, sqliteTable } from 'drizzle-orm/sqlite-core'
 import { nanoid16 } from '~~/server/utils/nanoid'
-import { sql } from 'drizzle-orm'
 
 export const users = sqliteTable('users', {
   id: text().$default(()=> nanoid16()).primaryKey(),
   email: text().notNull().unique(),
   role: text({ enum: ['admin', 'member'] }).notNull().default('member'),
-  tenantId: text().notNull().unique(), 
+  tenantId: text().notNull(),
   password: text(),
   otpSecret: int({ mode: 'number' }),
   passkeyPublicKey: text(),
