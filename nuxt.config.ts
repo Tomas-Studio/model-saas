@@ -24,6 +24,20 @@ export default defineNuxtConfig({
     sites: ['auth', 'app']
   },
 
+  runtimeConfig: {
+    session: {
+      password: '',
+      maxAge: 60 * 60 * 24 * 2 // Session expires after 2 days
+    },
+    turso: {
+      groupAuthToken: '',
+      apiToken: '',
+      org: '',
+      authDatabaseName: '',
+      tenantDatabaseName: ''
+    }
+  },
+
   css: ['~/styles/tailwind.css',],
 
   colorMode: { classSuffix: '', preference: 'dark', storageKey: 'app-theme' },

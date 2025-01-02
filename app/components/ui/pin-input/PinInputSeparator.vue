@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { DashIcon } from '@radix-icons/vue'
 import { Primitive, type PrimitiveProps, useForwardProps } from 'radix-vue'
+import type { HTMLAttributes } from 'vue';
+import { cn } from '~/lib/utils'
 
-const props = defineProps<PrimitiveProps>()
+const props = defineProps<PrimitiveProps & { class?: HTMLAttributes['class'] }>()
 const forwardedProps = useForwardProps(props)
 </script>
 
 <template>
-  <Primitive v-bind="forwardedProps">
+  <Primitive v-bind="forwardedProps" :class="cn('text-neutral-600', props.class)">
     <slot>
-      <span class="text-neutral-600">•</span>
+      •
     </slot>
   </primitive>
 </template>
