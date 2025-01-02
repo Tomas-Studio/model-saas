@@ -38,6 +38,12 @@ export default defineNuxtConfig({
     }
   },
 
+  nitro: {
+    experimental: {
+      asyncContext: true
+    }
+  },
+
   css: ['~/styles/tailwind.css',],
 
   colorMode: { classSuffix: '', preference: 'dark', storageKey: 'app-theme' },
