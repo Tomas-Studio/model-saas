@@ -1,4 +1,5 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+// import useTenantUrl from './app/composables/useTenantUrl'
+
 export default defineNuxtConfig({
   future: { compatibilityVersion: 4 },
   compatibilityDate: '2024-11-01',
@@ -21,7 +22,7 @@ export default defineNuxtConfig({
   multiTenancy: {
     tenantDynamicRoute: 'subdomain',
     rootDomains: ['localhost:5067'],
-    sites: ['auth', 'app']
+    sites: ['auth', 'account']
   },
 
   runtimeConfig: {
@@ -37,6 +38,10 @@ export default defineNuxtConfig({
       tenantDatabaseName: ''
     }
   },
+
+  // routeRules: {
+  //   '/': { redirect: `auth.localhost:5067` }
+  // },
 
   nitro: {
     experimental: {

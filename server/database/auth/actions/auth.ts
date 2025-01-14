@@ -2,13 +2,15 @@ import { AuthUser, InsertAuthUser } from '~~/types/database'
 import { useAuthDB, tables } from '~~/server/utils/auth-db'
 import { eq } from 'drizzle-orm'
 
+const { users } = tables
+
 export const createAuthUser = async (payload: InsertAuthUser) => {
   try {
     const record = await useAuthDB()
-      .insert(tables.users)
+      .insert(users)
       .values(payload)
       .onConflictDoUpdate({
-        target: tables.users.email,
+        target: users.email,
         set: {
           tenantId: payload.tenantId
         }
@@ -25,9 +27,9 @@ export const createAuthUser = async (payload: InsertAuthUser) => {
 export const updateAuthUser = async (userId: string, payload: Partial<AuthUser>) => {
   try {
     const record = await useAuthDB()
-      .update(tables.users)
+      .update(users)
       .set(payload)
-      .where(eq(tables.users.id, userId))
+      .where(eq(users.id, userId))
       .returning()
       .get()
     return record
@@ -42,9 +44,9 @@ export const updateLastActiveTimestamp = async (
 ): Promise<InsertAuthUser> => {
   try {
     const record = await useAuthDB()
-      .update(tables.users)
+      .update(users)
       .set({ lastActive: new Date() })
-      .where(eq(tables.users.id, userId))
+      .where(eq(users.id, userId))
       .returning()
       .get()
     return record
@@ -52,4 +54,12 @@ export const updateLastActiveTimestamp = async (
     console.error(error)
     throw new Error('Failed to update last active')
   }
+}
+
+export const findAuthUserWithSameDomain =  async (domain: string) => {
+  const record = await useAuthDB()
+    .select()
+    .from(users)
+    .where(eq(users.tenantId, domain))
+  return record
 }

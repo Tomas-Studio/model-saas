@@ -1,5 +1,6 @@
 export default function (tenant: string) {
-  const { protocol, host } = useRequestURL()
+  const { protocol } = useRequestURL()
+  const host = import.meta.env.PROD ? '' : 'localhost:5067'
   const currentTenant = useTenant() as string
 
   return currentTenant === tenant ? ''

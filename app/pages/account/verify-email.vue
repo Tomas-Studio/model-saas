@@ -10,7 +10,9 @@ const formSchema = toTypedSchema(z.object({
   pin: z.array(z.coerce.string()).length(6, { message: 'Invalid input' }),
 }))
 
-const { handleSubmit, setFieldValue } = useForm({
+const successful = ref(false)
+
+const { handleSubmit, setFieldValue, isSubmitting } = useForm({
   validationSchema: formSchema,
   initialValues: { pin: [] },
 })
@@ -57,7 +59,7 @@ const handleComplete = (e: string[]) => console.log(e.join(''))
           </Form.Item>
         </Form.Field>
         <Button class="mt-2">
-          Submit
+          {{ isSubmitting ? 'Verifying...' : 'Submit' }}
         </Button>
       </form>
     </Card.Content>

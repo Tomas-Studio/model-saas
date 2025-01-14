@@ -5,7 +5,9 @@ import { vAutoAnimate } from '@formkit/auto-animate'
 import { Form } from '~/composables/useNamespace'
 import { cn } from '~/lib/utils'
 
-const checkSubdomainAvailability = async (subdomain: string) => {}
+const checkSubdomainAvailability = async (subdomain: string) => {
+  return await useRequestFetch()(`/api/check-subdomain?domain=${subdomain}`)
+}
 
 const formSchema = toTypedSchema(z.object({
   subdomain: z.string().trim().min(3, { message: 'Subdomain too short' }).refine(async (subdomain) => {

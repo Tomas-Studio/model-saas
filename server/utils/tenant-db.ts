@@ -4,32 +4,45 @@ import { createClient as createTursoClient } from '@tursodatabase/api'
 import * as schema from '../database/tenant/schema'
 import md5 from 'md5'
 
-export const tables = schema
-
-// const event = useRequestEvent()!
-
-const config = useRuntimeConfig(useEvent())
+export const tenantTables = schema
 
 const turso = createTursoClient({
-  token: config.turso.apiToken,
-  org: config.turso.org
+  token: process.env.NUXT_TURSO_API_TOKEN!,
+  org: process.env.NUXT_TURSO_ORG!
 })
 
 export async function useTenantDB() {
-
   const url = await getLibsqlUrl()
-
-  if (!url) {
-    console.error('Failed to create database client: URL is null.')
-    // return sendRedirect(event, '/')
-  }
+  
+  const client = createLibsqlClient({
+    url: url,
+    authToken: process.env.NUXT_TURSO_GROUP_AUTH_TOKEN
+  })
+  return drizzle(client, { schema })
 }
 
-async function checkDatabaseExists() {
+async function getLibsqlUrl() {
   const dbName = await getDatabaseName()
+  const url = getDatabaseUrl(dbName)
+  return `libsql://${url}`
+}
 
-  if (!dbName) return false
+function getDatabaseUrl(dbName: string) {
+  return `${dbName}-${process.env.NUXT_TURSO_ORG}.turso.io`
+}
 
+export async function getDatabaseName() {
+  const host = getRequestHost(useEvent())
+  const tenantFromHost = host.split('.')[0]
+
+  const userSession = await getUserSession(useEvent())
+  const tenant = userSession.user?.tenantId ?? tenantFromHost
+
+  return md5(tenant)
+}
+
+export async function checkDatabaseExists() {
+  const dbName = await getDatabaseName()
   try {
     await turso.databases.get(dbName)
     return true
@@ -37,21 +50,4 @@ async function checkDatabaseExists() {
     console.error('Error checking database existence:', error)
     return false
   }
-}
-
-async function getLibsqlUrl() {
-  const dbName = await getDatabaseName()
-  const url = getDatabaseUrl(dbName)
-  console.log({ url })
-  return url ? `libsql://${url}` : null
-}
-
-async function getDatabaseName() {
-  const { user } = await requireUserSession(useEvent())
-  const tenant = user.tenantId
-  return tenant ? md5(tenant) : null
-}
-
-function getDatabaseUrl(dbName: string | null) {
-  return dbName ? `${dbName}-${config.turso.org}.turso.io` : null
 }

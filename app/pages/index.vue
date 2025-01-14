@@ -1,10 +1,7 @@
 <script lang="ts" setup>
-
+await navigateTo({ path: useTenantUrl('auth') }, { external: true })
 </script>
 
 <template>
-  <div>
-    The home page
-    <Button size="sm" class="ml-2">Sign Up</Button>
-  </div>
+  <div/>
 </template>
