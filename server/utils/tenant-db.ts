@@ -18,7 +18,7 @@ export async function useTenantDB() {
     url: url,
     authToken: process.env.NUXT_TURSO_GROUP_AUTH_TOKEN
   })
-  return drizzle(client, { schema })
+  return drizzle(client, { schema, casing: 'snake_case' })
 }
 
 async function getLibsqlUrl() {

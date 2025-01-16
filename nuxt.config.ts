@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     'nuxt-multi-tenancy',
     'nuxt-auth-utils',
+    '@vueuse/nuxt',
   ],
 
   shadcn: {

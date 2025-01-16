@@ -13,5 +13,5 @@ const client = createLibsqlClient({
 })
 
 export function useAuthDB() {
-  return drizzle(client, { schema })
+  return drizzle(client, { schema, casing: 'snake_case' })
 }

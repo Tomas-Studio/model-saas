@@ -22,4 +22,5 @@ export default defineConfig({
     url,
     authToken: process.env.NUXT_TURSO_GROUP_AUTH_TOKEN,
   },
+  casing: 'snake_case'
 })

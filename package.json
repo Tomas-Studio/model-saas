@@ -11,7 +11,9 @@
     "lint": "eslint . --cache",
     "lintfix": "eslint . --cache --fix",
     "db:generate-auth": "drizzle-kit generate --config=drizzle-auth.config.ts",
-    "db:generate-tenant": "drizzle-kit generate --config=drizzle-tenant.config.ts"
+    "db:generate-tenant": "drizzle-kit generate --config=drizzle-tenant.config.ts",
+    "db:migrate-auth": "drizzle-kit migrate --config=drizzle-auth.config.ts",
+    "db:migrate-tenant": "drizzle-kit migrate --config=drizzle-tenant.config.ts"
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
@@ -24,6 +26,7 @@
     "@tursodatabase/api": "^1.9.0",
     "@vee-validate/zod": "^4.15.0",
     "@vueuse/core": "^12.2.0",
+    "@vueuse/nuxt": "12.4.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.38.3",
@@ -46,8 +49,7 @@
   },
   "devDependencies": {
     "drizzle-kit": "^0.30.1",
-    "tailwindcss-motion": "^1.0.1",
-    "tsx": "^4.19.2"
+    "tailwindcss-motion": "^1.0.1"
   },
   "patchedDependencies": {
     "nuxt-multi-tenancy@1.2.4": "patches/nuxt-multi-tenancy@1.2.4.patch"

@@ -6,6 +6,7 @@ export default defineEventHandler(async (event) => {
     event, 
     z.object({ domain: z.string() })
   )
+  console.log('checking')
   const data = await findAuthUserWithSameDomain(domain)
   return data.length === 0
 })
