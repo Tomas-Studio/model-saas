@@ -4,10 +4,19 @@ import * as z from 'zod'
 import { vAutoAnimate } from '@formkit/auto-animate'
 import { Form } from '~/composables/useNamespace'
 import { cn } from '~/lib/utils'
+import { useForm } from 'vee-validate'
 
 const formSchema = toTypedSchema(z.object({
-  email: z.string().min(1, { message: 'Enter email' }).email({ message: 'Enter a valid email' }),
+  email: z.string()
+    .min(1, { message: 'Enter email' })
+    .email({ message: 'Enter a valid email' }),
 }))
+
+const { handleSubmit } = useForm({ validationSchema: formSchema })
+
+const onSubmit = handleSubmit((values) =>  {
+  
+})
 </script>
 
 <template>
@@ -17,7 +26,7 @@ const formSchema = toTypedSchema(z.object({
       <Card.Description>Enter email associated with your organisation</Card.Description>
     </Card.Header>
     <Card.Content class="px-6 pb-6">
-      <Form.Root :validation-schema="formSchema">
+      <form @submit="onSubmit">
         <Form.Field v-slot="{ componentField }" name="email" :validate-on-blur="false">
           <Form.Item v-auto-animate class="mb-4">
             <!-- <Form.Label>Subdomain</Form.Label> -->
@@ -30,7 +39,7 @@ const formSchema = toTypedSchema(z.object({
         <Button class="flex w-full">
           Verify Email
         </Button>
-      </Form.Root>
+      </form>
     </Card.Content>
   </Card>
 </template>

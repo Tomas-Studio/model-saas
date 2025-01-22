@@ -20,7 +20,7 @@ const showInput = ref(false)
           <Form.Item v-auto-animate class="mb-4">
             <!-- <Form.Label>Subdomain</Form.Label> -->
             <Form.Control>
-              <Input type="email" placeholder="Email" v-bind="componentField" class="h-10" />
+              <Input type="email" placeholder="Enter your email" v-bind="componentField" class="h-10" />
             </Form.Control>
             <Form.Message />
           </Form.Item>

@@ -26,21 +26,19 @@ const debouncedCheckSubdomainAvailability = useDebounceFn(
 
 const validateSubdomain = (subdomain: string) => {
   return new Promise((resolve) => {
-    debouncedCheckSubdomainAvailability(subdomain, resolve);
-  });
-};
+    debouncedCheckSubdomainAvailability(subdomain, resolve)
+  })
+}
 
 const formSchema = toTypedSchema(z.object({
-  subdomain: z.string().trim().min(3, { message: 'Subdomain too short' }).refine(async (subdomain) => {
-    const isAvailable = await validateSubdomain(subdomain)
-    console.log(isAvailable)
-    return isAvailable
-  }, 'Subdomain not available')
+  subdomain: z.string().trim()
+    .min(3, { message: 'Subdomain too short' })
+    .refine(async (subdomain) => {
+      return await validateSubdomain(subdomain)
+    }, 'Subdomain not available')
 }))
 
-const { handleSubmit } = useForm({
-  validationSchema: formSchema,
-})
+const { handleSubmit } = useForm({ validationSchema: formSchema })
 
 const save = useCookie(TEMP_SUBDOMAIN)
 

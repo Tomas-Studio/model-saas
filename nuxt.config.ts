@@ -37,7 +37,8 @@ export default defineNuxtConfig({
       org: '',
       authDatabaseName: '',
       tenantDatabaseName: ''
-    }
+    },
+    otpSecret: ''
   },
 
   // routeRules: {

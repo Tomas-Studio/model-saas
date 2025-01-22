@@ -1,6 +1,8 @@
 import { sql } from 'drizzle-orm'
 import { text, int, sqliteTable } from 'drizzle-orm/sqlite-core'
-import { nanoid16 } from '~~/server/utils/nanoid'
+import { customAlphabet } from 'nanoid'
+
+const nanoid16 = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', 16)
 
 export const invitations = sqliteTable('invitations', {
   id: text().$default(()=> nanoid16()).primaryKey(),
