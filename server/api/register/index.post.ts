@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig(event)
 
   // set otp option
-  totp.options = { step: 300, window: 0 } 
+  totp.options = { step: 300, window: 0 }
 
   const otp = totp.generate(config.otpSecret);
 
@@ -28,6 +28,7 @@ export default defineEventHandler(async (event) => {
   })
   
   return {
-    domain, email, otp, options: totp.options
+    domain, email, otp, 
+    options: totp.options
   }
 })
