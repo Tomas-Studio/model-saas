@@ -20,7 +20,7 @@ export const users = sqliteTable('users', {
 export const orgs = sqliteTable('orgs', {
   id: text().$default(()=> nanoid16()).primaryKey(),
   email: text().notNull().unique(),
-  otpSecret: int({ mode: 'number' }),
+  otpSecret: text(),
   subdomain: text().notNull().unique(),
   confirmed: int({ mode: 'boolean' }).notNull().default(false),
   createdAt: int({ mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`),

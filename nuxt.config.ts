@@ -27,6 +27,10 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    redis: {
+      url: '',
+      password: ''
+    },
     session: {
       password: '',
       maxAge: 60 * 60 * 24 * 2 // Session expires after 2 days
@@ -38,7 +42,7 @@ export default defineNuxtConfig({
       authDatabaseName: '',
       tenantDatabaseName: ''
     },
-    otpSecret: ''
+    resendApiKey: ''
   },
 
   // routeRules: {
@@ -48,6 +52,13 @@ export default defineNuxtConfig({
   nitro: {
     experimental: {
       asyncContext: true
+    },
+    storage: {
+      db: {
+        driver: 'redis',
+        url: process.env.NUXT_REDIS_URL,
+        password: process.env.NUXT_REDIS_PASSWORD
+      },
     }
   },
 
