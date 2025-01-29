@@ -60,7 +60,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // set otp time cookie
-  setCookie(event, OTP_STEP, '300', { 
+  setCookie(event, OTP_STEP, '298', { 
     expires: new Date(expireAtByMinutes(5)),
     sameSite: true,
     maxAge: expiresToMaxAge(new Date(expireAtByMinutes(5)))

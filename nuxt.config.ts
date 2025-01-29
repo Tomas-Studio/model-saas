@@ -45,6 +45,10 @@ export default defineNuxtConfig({
     resendApiKey: ''
   },
 
+  auth: {
+    webAuthn: true
+  },
+
   // routeRules: {
   //   '/': { redirect: `auth.localhost:5067` }
   // },

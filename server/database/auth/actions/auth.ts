@@ -1,8 +1,8 @@
-import { AuthUser, InsertAuthUser, InsertOrg } from '~~/types/database'
+import { AuthUser, InsertAuthUser, InsertCredential, InsertOrg } from '~~/types/database'
 import { useAuthDB, tables } from '~~/server/utils/auth-db'
 import { eq, sql } from 'drizzle-orm'
 
-const { users, orgs } = tables
+const { users, orgs, credentials } = tables
 
 export const createAuthUser = async (payload: InsertAuthUser) => {
   try {
@@ -12,7 +12,7 @@ export const createAuthUser = async (payload: InsertAuthUser) => {
       .onConflictDoUpdate({
         target: users.email,
         set: {
-          tenantId: payload.tenantId
+          tenant: payload.tenant
         }
       })
       .returning()
@@ -23,6 +23,19 @@ export const createAuthUser = async (payload: InsertAuthUser) => {
     throw new Error('Failed to create new user')
   }
 } 
+
+export const createCredential = async (payload: InsertCredential) => {
+  try {
+    const record = await useAuthDB()
+      .insert(credentials)
+      .values(payload)
+      .returning().get()
+    return record
+  } catch (error) {
+    console.log(error)
+    throw new Error('Failed to create credential')
+  }
+}
 
 export const updateAuthUser = async (userId: string, payload: Partial<AuthUser>) => {
   try {
@@ -60,7 +73,7 @@ export const findAuthUserWithSameDomain =  async (domain: string) => {
   const record = await useAuthDB()
     .select()
     .from(users)
-    .where(eq(users.tenantId, domain))
+    .where(eq(users.tenant, domain))
   return record
 }
 
@@ -109,4 +122,13 @@ export const findOrgByEmail = async (email: string) => {
     console.log(error)
     return null
   }
+}
+
+export const excludeCredentials = async (email: string) => {
+  const [user] = await useAuthDB()
+    .select({ id: credentials.id, transports: credentials.transports })
+    .from(users)
+    .innerJoin(credentials, eq(credentials.userId, users.id))
+    .where(eq(users.email, email))
+  return user
 }

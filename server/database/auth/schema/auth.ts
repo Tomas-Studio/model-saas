@@ -9,7 +9,7 @@ export const users = sqliteTable('users', {
   id: text().$default(()=> nanoid16()).primaryKey(),
   email: text().notNull().unique(),
   role: text({ enum: ['admin', 'member'] }).notNull().default('member'),
-  tenantId: text().notNull(),
+  tenant: text().notNull(),
   publicKey: text(),
   registered: int({ mode: 'boolean' }).notNull().default(false),
   createdAt: int({ mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`),
@@ -31,7 +31,7 @@ export const credentials = sqliteTable('credentials', {
   id: text().notNull().unique(),
   publicKey: text().notNull(),
   counter: int().notNull(),
-  backup: int({ mode: 'boolean' }).notNull(),
+  backedup: int({ mode: 'boolean' }).notNull(),
   transports: text().notNull().$type<WebAuthnCredential['transports']>()
 }, (table) => [
     primaryKey({ columns: [table.userId, table.id] , name: 'credential_id' })

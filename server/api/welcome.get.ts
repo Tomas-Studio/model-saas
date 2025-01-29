@@ -36,7 +36,5 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  // return sendRedirect(event, `http://${user.tenantId}/admin/dashboard`)
-
   return { created: true }
 })

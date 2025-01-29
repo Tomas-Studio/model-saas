@@ -9,4 +9,4 @@ export function expiresToMaxAge(expiresDate: Date) {
   return maxAgeSeconds
 }
 
-const kv = useStorage('db')
+export const kv = useStorage('db')

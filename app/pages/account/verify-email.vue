@@ -6,6 +6,9 @@ import { Form, PinInput } from '~/composables/useNamespace'
 import { cn } from '~/lib/utils'
 import { useForm } from 'vee-validate'
 
+const { minutes, seconds, timerFn } = useCountdown()
+useIntervalFn(timerFn, 1000)
+
 const formSchema = toTypedSchema(z.object({
   pin: z.array(z.coerce.string()).length(6, { message: 'Invalid input' }),
 }))
@@ -21,7 +24,7 @@ const handleComplete = (e: string[]) => console.log(e.join(''))
 </script>
 
 <template>
-  <Card :class="cn('w-[24rem]', $attrs.class ?? '')">
+  <Card v-if="true" :class="cn('w-[24rem]', $attrs.class ?? '')">
     <Card.Header>
       <Card.Title>Check Your Indox</Card.Title>
       <Card.Description>We've sent a verification code to tjomas@gmail.com. Please check your email, including the spam folder</Card.Description>
@@ -64,4 +67,8 @@ const handleComplete = (e: string[]) => console.log(e.join(''))
       </form>
     </Card.Content>
   </Card>
+  <div v-if="true" class="px-2 mt-1 text-neutral-500 flex">
+    <span class="text-sm">Didn't get code ? Request another in <span class="text-blue-800">{{ minutes }}:{{ seconds }}</span></span>
+    <button class="">Resend</button>
+  </div>
 </template>
