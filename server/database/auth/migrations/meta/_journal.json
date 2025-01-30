@@ -36,6 +36,13 @@
       "when": 1738168953523,
       "tag": "0004_panoramic_monster_badoon",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1738237065797,
+      "tag": "0005_dry_lifeguard",
+      "breakpoints": true
     }
   ]
 }

@@ -10,11 +10,10 @@ export const users = sqliteTable('users', {
   email: text().notNull().unique(),
   role: text({ enum: ['admin', 'member'] }).notNull().default('member'),
   tenant: text().notNull(),
-  publicKey: text(),
   registered: int({ mode: 'boolean' }).notNull().default(false),
   createdAt: int({ mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`),
   updatedAt: int({ mode: 'timestamp' }).notNull().$onUpdate(()=> sql`(CURRENT_TIMESTAMP)`),
-  lastLoginAt: int({ mode: 'timestamp' }).$onUpdate(()=> sql`(CURRENT_TIMESTAMP)`),
+  lastLoginAt: int({ mode: 'timestamp' }).notNull(),
 })
 
 export const orgs = sqliteTable('orgs', {
@@ -32,7 +31,7 @@ export const credentials = sqliteTable('credentials', {
   publicKey: text().notNull(),
   counter: int().notNull(),
   backedup: int({ mode: 'boolean' }).notNull(),
-  transports: text().notNull().$type<WebAuthnCredential['transports']>()
+  transports: text({ mode: 'json' }).notNull().$type<WebAuthnCredential['transports']>()
 }, (table) => [
     primaryKey({ columns: [table.userId, table.id] , name: 'credential_id' })
   ]

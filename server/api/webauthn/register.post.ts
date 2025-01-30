@@ -2,7 +2,6 @@ import { z } from 'h3-zod'
 import { kv } from '~~/server/utils/general'
 import { WebAuthnRegisterEventHandlerOptions, WebAuthnUser  } from '#auth-utils'
 import { createAuthUser, createCredential, excludeCredentials } from '~~/server/database/auth/actions/auth'
-// import {   } from '../../../node_modules/nuxt-auth-utils/dist/runtime/server/lib/webauthn/register'
 
 export default defineWebAuthnRegisterEventHandler({
   async storeChallenge(event, challenge, attemptId) {
@@ -33,7 +32,13 @@ export default defineWebAuthnRegisterEventHandler({
   async onSuccess(event, { user, credential }) {
     console.log(user, credential)
 
-    const userData = await createAuthUser({ email: user.email, tenant: user.tenant })
+    const userData = await createAuthUser({ 
+      email: user.email, 
+      tenant: user.tenant, 
+      lastLoginAt: new Date(), 
+      registered: true,
+      role: user.role
+    })
       .catch((error) => {
         throw createError({
           statusCode: 400,
@@ -58,7 +63,6 @@ export default defineWebAuthnRegisterEventHandler({
         tenant: userData.tenant,
         registered: userData.registered,
         lastLoginAt: userData.lastLoginAt,
-        publicKey: userData.publicKey
       }
     })
   },
